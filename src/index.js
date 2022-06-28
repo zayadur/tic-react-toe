@@ -53,7 +53,7 @@ class Game extends React.Component {
     }
 
     handleClick(i) {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1); // splice from 0 to stepNumber to throw away future moves
+        const history = this.state.history.slice(0, this.state.stepNumber + 1); // splice from 0 to stepNumber to hide "future history"
         const current = history[history.length-1];
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) return;
@@ -87,8 +87,8 @@ class Game extends React.Component {
             // step is current history value
             // move is step index
             const desc = move ?
-                'Move ' + move :
-                'Reset';
+                'move ' + move :
+                '(re)start';
             return (
                 <li key={move}>
                     { /*
@@ -96,7 +96,7 @@ class Game extends React.Component {
                             if key exists, move data,
                             if key exists previously but not anymore, destroy component,
                             if key doesn't exist previously and now exists, create component
-                        */ }
+                    */ }
                     <button onClick={() => this.jumpTo(move)}>{desc}</button>
                 </li>
             );
@@ -119,7 +119,7 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <ul>{moves}</ul>
                 </div >
             </div >
         );
